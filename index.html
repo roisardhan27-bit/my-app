@@ -3,69 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bolt-like App</title>
+    <title>StudyForge – Build Your Best Self</title>
     <style>
-        /* Basic reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-
-        body {
-            background-color: #f0f2f5;
-            color: #333;
-            padding: 20px;
-        }
-
-        header {
-            background-color: #4f46e5;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            color: #4f46e5;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: #666;
-        }
+        body { font-family: sans-serif; background:#f0f2f5; margin:0; padding:0; }
+        header { background:#4A6FFF; color:white; padding:20px; text-align:center; }
+        .container { padding: 20px; max-width: 600px; margin:auto; }
+        .card { background:white; padding:15px; margin-bottom:15px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+        .card h3 { color:#4A6FFF; margin-bottom:10px; }
+        .card p { color:#333; font-size:14px; margin:5px 0; }
+        nav { position: fixed; bottom:0; left:0; width:100%; display:flex; justify-content: space-around; background:white; border-top:1px solid #ddd; padding:10px 0; }
+        nav a { text-decoration:none; color:#4A6FFF; font-weight:bold; }
+        .progress-bar { height:10px; background:#ddd; border-radius:5px; overflow:hidden; margin-top:5px; }
+        .progress-bar-inner { height:10px; background:#22C55E; width:50%; }
+        .timer { font-size:32px; text-align:center; margin:10px 0; }
+        .xp { text-align:center; margin-top:10px; color:#F59E0B; font-weight:bold; }
     </style>
 </head>
 <body>
     <header>
-        <h1>My Bolt-like App</h1>
+        <h1>StudyForge</h1>
+        <p>Good morning! Ready to build your best self today?</p>
     </header>
+    <div class="container">
 
-    <div class="card-container">
+        <!-- Today's Plan -->
         <div class="card">
-            <h3>Card 1</h3>
-            <p>Konten mirip layout Bolt.</p>
+            <h3>Today's Plan</h3>
+            <p>07:00 – Math Study</p>
+            <p>10:00 – English Homework</p>
+            <p>19:00 – Review Biology</p>
         </div>
+
+        <!-- Habit Tracker -->
         <div class="card">
-            <h3>Card 2</h3>
-            <p>Konten mirip layout Bolt.</p>
+            <h3>Habit Tracker</h3>
+            <p>☐ Study 1 hour</p>
+            <p>☐ Read 10 pages</p>
+            <p>☐ Exercise</p>
+            <p>☐ No social media during study</p>
         </div>
+
+        <!-- Weekly Progress -->
         <div class="card">
-            <h3>Card 3</h3>
-            <p>Konten mirip layout Bolt.</p>
+            <h3>Weekly Progress</h3>
+            <p>Study hours this week: 8h</p>
+            <p>Current streak: 3 days</p>
+            <div class="progress-bar">
+                <div class="progress-bar-inner" style="width:40%"></div>
+            </div>
         </div>
+
+        <!-- Motivation -->
+        <div class="card">
+            <h3>Motivation</h3>
+            <p>"Discipline is the bridge between goals and accomplishment."</p>
+        </div>
+
+        <!-- Focus Timer -->
+        <div class="card">
+            <h3>Focus Timer (Pomodoro)</h3>
+            <div class="timer">25:00</div>
+            <p style="text-align:center;">Study Session</p>
+            <div style="text-align:center; margin-top:10px;">
+                <button>Start</button>
+                <button>Pause</button>
+                <button>Finish</button>
+            </div>
+            <p style="margin-top:10px;">Background Sounds:</p>
+            <p>☐ Rain ☑ Library ☐ Cafe ☐ Nature</p>
+        </div>
+
+        <!-- Language Learning -->
+        <div class="card">
+            <h3>Language Learning</h3>
+            <p>English Level 2 – Progress: 60%</p>
+            <div class="progress-bar">
+                <div class="progress-bar-inner" style="width:60%"></div>
+            </div>
+            <p>Japanese Level 1 – Progress: 30%</p>
+            <div class="progress-bar">
+                <div class="progress-bar-inner" style="width:30%"></div>
+            </div>
+        </div>
+
+        <!-- XP Tracker -->
+        <div class="card xp">
+            Total XP: 250 – Level 3 (Focus Builder)
+        </div>
+
     </div>
+
+    <!-- Bottom Navigation -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Planner</a>
+        <a href="#">Focus</a>
+        <a href="#">Learn</a>
+        <a href="#">Profile</a>
+    </nav>
 </body>
 </html>
