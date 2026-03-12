@@ -1,105 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyForge – Build Your Best Self</title>
-    <style>
-        body { font-family: sans-serif; background:#f0f2f5; margin:0; padding:0; }
-        header { background:#4A6FFF; color:white; padding:20px; text-align:center; }
-        .container { padding: 20px; max-width: 600px; margin:auto; }
-        .card { background:white; padding:15px; margin-bottom:15px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-        .card h3 { color:#4A6FFF; margin-bottom:10px; }
-        .card p { color:#333; font-size:14px; margin:5px 0; }
-        nav { position: fixed; bottom:0; left:0; width:100%; display:flex; justify-content: space-around; background:white; border-top:1px solid #ddd; padding:10px 0; }
-        nav a { text-decoration:none; color:#4A6FFF; font-weight:bold; }
-        .progress-bar { height:10px; background:#ddd; border-radius:5px; overflow:hidden; margin-top:5px; }
-        .progress-bar-inner { height:10px; background:#22C55E; width:50%; }
-        .timer { font-size:32px; text-align:center; margin:10px 0; }
-        .xp { text-align:center; margin-top:10px; color:#F59E0B; font-weight:bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyForge – Build Your Best Self</title>
+<style>
+body { font-family:sans-serif; background:#f0f2f5; margin:0; padding:0;}
+header { background:#4A6FFF; color:white; padding:20px; text-align:center;}
+.container { padding:20px; max-width:600px; margin:auto;}
+.card { background:white; padding:15px; margin-bottom:15px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+.card h3 { color:#4A6FFF; margin-bottom:10px;}
+.card p { color:#333; font-size:14px; margin:5px 0;}
+nav { position:fixed; bottom:0; left:0; width:100%; display:flex; justify-content: space-around; background:white; border-top:1px solid #ddd; padding:10px 0;}
+nav a { text-decoration:none; color:#4A6FFF; font-weight:bold;}
+.progress-bar { height:10px; background:#ddd; border-radius:5px; overflow:hidden; margin-top:5px;}
+.progress-bar-inner { height:10px; background:#22C55E; width:0;}
+.timer { font-size:32px; text-align:center; margin:10px 0;}
+button { margin:3px; padding:5px 10px; border:none; border-radius:5px; background:#4A6FFF; color:white; cursor:pointer;}
+button:disabled { background:#ccc; cursor:default;}
+.task-item { display:flex; justify-content:space-between; align-items:center; margin:3px 0; }
+.task-item span { flex:1; }
+.task-item button { background:#F59E0B; padding:3px 7px; font-size:12px; }
+</style>
 </head>
 <body>
-    <header>
-        <h1>StudyForge</h1>
-        <p>Good morning! Ready to build your best self today?</p>
-    </header>
-    <div class="container">
+<header>
+<h1>StudyForge</h1>
+<p>Good morning! Ready to build your best self today?</p>
+</header>
+<div class="container">
 
-        <!-- Today's Plan -->
-        <div class="card">
-            <h3>Today's Plan</h3>
-            <p>07:00 – Math Study</p>
-            <p>10:00 – English Homework</p>
-            <p>19:00 – Review Biology</p>
-        </div>
+<!-- Daily Plan -->
+<div class="card">
+<h3>Today's Plan</h3>
+<div id="taskList">
+<div class="task-item"><span>07:00 – Math Study</span><button class="removeTask">X</button></div>
+<div class="task-item"><span>10:00 – English Homework</span><button class="removeTask">X</button></div>
+<div class="task-item"><span>19:00 – Review Biology</span><button class="removeTask">X</button></div>
+</div>
+<input type="text" id="newTask" placeholder="Add new task..." style="width:70%;">
+<button id="addTaskBtn">Add</button>
+</div>
 
-        <!-- Habit Tracker -->
-        <div class="card">
-            <h3>Habit Tracker</h3>
-            <p>☐ Study 1 hour</p>
-            <p>☐ Read 10 pages</p>
-            <p>☐ Exercise</p>
-            <p>☐ No social media during study</p>
-        </div>
+<!-- Habit Tracker -->
+<div class="card">
+<h3>Habit Tracker</h3>
+<p><input type="checkbox" class="habit" data-xp="20"> Study 1 hour</p>
+<p><input type="checkbox" class="habit" data-xp="10"> Read 10 pages</p>
+<p><input type="checkbox" class="habit" data-xp="15"> Exercise</p>
+<p><input type="checkbox" class="habit" data-xp="5"> No social media during study</p>
+</div>
 
-        <!-- Weekly Progress -->
-        <div class="card">
-            <h3>Weekly Progress</h3>
-            <p>Study hours this week: 8h</p>
-            <p>Current streak: 3 days</p>
-            <div class="progress-bar">
-                <div class="progress-bar-inner" style="width:40%"></div>
-            </div>
-        </div>
+<!-- Focus Timer -->
+<div class="card">
+<h3>Pomodoro Timer</h3>
+<div class="timer" id="timer">25:00</div>
+<div style="text-align:center;">
+<button id="startBtn">Start</button>
+<button id="pauseBtn" disabled>Pause</button>
+<button id="resetBtn">Reset</button>
+</div>
+</div>
 
-        <!-- Motivation -->
-        <div class="card">
-            <h3>Motivation</h3>
-            <p>"Discipline is the bridge between goals and accomplishment."</p>
-        </div>
+<!-- Language Learning -->
+<div class="card">
+<h3>Language Learning</h3>
+<p>English Level 2 – Progress: <span id="englishProgress">60</span>%</p>
+<div class="progress-bar"><div class="progress-bar-inner" id="englishBar" style="width:60%"></div></div>
+<p>Japanese Level 1 – Progress: <span id="japaneseProgress">30</span>%</p>
+<div class="progress-bar"><div class="progress-bar-inner" id="japaneseBar" style="width:30%"></div></div>
+<button id="increaseEnglish">+10% English</button>
+<button id="increaseJapanese">+10% Japanese</button>
+</div>
 
-        <!-- Focus Timer -->
-        <div class="card">
-            <h3>Focus Timer (Pomodoro)</h3>
-            <div class="timer">25:00</div>
-            <p style="text-align:center;">Study Session</p>
-            <div style="text-align:center; margin-top:10px;">
-                <button>Start</button>
-                <button>Pause</button>
-                <button>Finish</button>
-            </div>
-            <p style="margin-top:10px;">Background Sounds:</p>
-            <p>☐ Rain ☑ Library ☐ Cafe ☐ Nature</p>
-        </div>
+<!-- Brain Games -->
+<div class="card">
+<h3>Brain Games</h3>
+<p>Click to simulate playing a game:</p>
+<button id="playChess">Play Chess Puzzle (+10 XP)</button>
+<button id="playMemory">Play Memory Game (+10 XP)</button>
+</div>
 
-        <!-- Language Learning -->
-        <div class="card">
-            <h3>Language Learning</h3>
-            <p>English Level 2 – Progress: 60%</p>
-            <div class="progress-bar">
-                <div class="progress-bar-inner" style="width:60%"></div>
-            </div>
-            <p>Japanese Level 1 – Progress: 30%</p>
-            <div class="progress-bar">
-                <div class="progress-bar-inner" style="width:30%"></div>
-            </div>
-        </div>
+<!-- XP Tracker -->
+<div class="card">
+<h3>XP Tracker</h3>
+<div id="xpDisplay">Total XP: 0 – Level 1 (Beginner)</div>
+<div class="progress-bar"><div class="progress-bar-inner" id="xpBar"></div></div>
+</div>
 
-        <!-- XP Tracker -->
-        <div class="card xp">
-            Total XP: 250 – Level 3 (Focus Builder)
-        </div>
+</div>
 
-    </div>
+<nav>
+<a href="#">Home</a>
+<a href="#">Planner</a>
+<a href="#">Focus</a>
+<a href="#">Learn</a>
+<a href="#">Profile</a>
+</nav>
 
-    <!-- Bottom Navigation -->
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Planner</a>
-        <a href="#">Focus</a>
-        <a href="#">Learn</a>
-        <a href="#">Profile</a>
-    </nav>
+<script>
+// XP & habits
+let totalXP = 0;
+let level = 1;
+const levelThreshold = [0,50,100,200,350,500]; // example
+const xpDisplay = document.getElementById('xpDisplay');
+const xpBar = document.getElementById('xpBar');
+const habits = document.querySelectorAll('.habit');
+
+function updateXPDisplay(){
+    let lvl = level;
+    for(let i=levelThreshold.length-1;i>=0;i--){
+        if(totalXP >= levelThreshold[i]){ lvl = i+1; break; }
+    }
+    xpDisplay.textContent = `Total XP: ${totalXP} – Level ${lvl} (${['Beginner','Focus Builder','Study Master','Discipline Legend'][lvl-1] || 'Legend'})`;
+    xpBar.style.width = Math.min(totalXP,100)+'%';
+}
+
+habits.forEach(habit => {
+    habit.addEventListener('change', () => {
+        const xp = parseInt(habit.dataset.xp);
+        if(habit.checked) totalXP += xp;
+        else totalXP -= xp;
+        updateXPDisplay();
+    });
+});
+
+// Pomodoro Timer
+let timerSeconds = 25*60;
+let timerInterval;
+const timerDisplay = document.getElementById('timer');
+const startBtn = document.getElementById('startBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+function updateTimerDisplay(){ 
+    let minutes = Math.floor(timerSeconds/60);
+    let seconds = timerSeconds % 60;
+    timerDisplay.textContent = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+}
+
+startBtn.addEventListener('click',()=>{
+    startBtn.disabled = true;
+    pauseBtn.disabled = false;
+    timerInterval = setInterval(()=>{
+        if(timerSeconds>0){ timerSeconds--; updateTimerDisplay(); } 
+        else { clearInterval(timerInterval); startBtn.disabled=false; pauseBtn.disabled=true; }
+    },1000);
+});
+pauseBtn.addEventListener('click',()=>{
+    clearInterval(timerInterval); startBtn.disabled=false; pauseBtn.disabled=true;
+});
+resetBtn.addEventListener('click',()=>{
+    clearInterval(timerInterval); timerSeconds=25*60; updateTimerDisplay(); startBtn.disabled=false; pauseBtn.disabled=true;
+});
+
+// Add / remove tasks
+const addTaskBtn = document.getElementById('addTaskBtn');
+const newTaskInput = document.getElementById('newTask');
+const taskList = document.getElementById('taskList');
+
+addTaskBtn.addEventListener('click',()=>{
+    const val = newTaskInput.value.trim();
+    if(val){
+        const div = document.createElement('div');
+        div.className = 'task-item';
+        div.innerHTML = `<span>${val}</span><button class="removeTask">X</button>`;
+        taskList.appendChild(div);
+        newTaskInput.value='';
+        div.querySelector('.removeTask').addEventListener('click',()=>{div.remove();});
+    }
+});
+document.querySelectorAll('.removeTask').forEach(btn=>{
+    btn.addEventListener('click',e=>{ e.target.parentElement.remove(); });
+});
+
+// Language progress
+const englishProgress = document.getElementById('englishProgress');
+const englishBar = document.getElementById('englishBar');
+const japaneseProgress = document.getElementById('japaneseProgress');
+const japaneseBar = document.getElementById('japaneseBar');
+
+document.getElementById('increaseEnglish').addEventListener('click',()=>{
+    let val = Math.min(100,parseInt(englishProgress.textContent)+10);
+    englishProgress.textContent=val;
+    englishBar.style.width=val+'%';
+    totalXP += 15; updateXPDisplay();
+});
+document.getElementById('increaseJapanese').addEventListener('click',()=>{
+    let val = Math.min(100,parseInt(japaneseProgress.textContent)+10);
+    japaneseProgress.textContent=val;
+    japaneseBar.style.width=val+'%';
+    totalXP += 15; updateXPDisplay();
+});
+
+// Brain games
+document.getElementById('playChess').addEventListener('click',()=>{ totalXP+=10; updateXPDisplay(); alert("Played Chess Puzzle! +10 XP"); });
+document.getElementById('playMemory').addEventListener('click',()=>{ totalXP+=10; updateXPDisplay(); alert("Played Memory Game! +10 XP"); });
+</script>
 </body>
 </html>
